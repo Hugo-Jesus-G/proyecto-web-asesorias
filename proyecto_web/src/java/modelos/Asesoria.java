@@ -4,10 +4,12 @@
  */
 package modelos;
 
-public class Cita{
+public class Asesoria{
 
 private int id;
-private int idAlumno;
+private String nombreCompleto;
+private String matricula;
+private String programa;
 private int idDocente;
 private int idMateria;
 private String fecha;
@@ -16,19 +18,30 @@ private String asunto;
 private int esAlumno;
 private String estado;
 private String comentario;
+private String fechaSolicitud;
+private String nombreDocente;
+private String nombreMateria;
 
-    public Cita(int id, int idAlumno, int idDocente, int idMateria, String fecha, String hora, String asunto, int esAlumno, String estado, String comentario) {
-        this.id = id;
-        this.idAlumno = idAlumno;
+    public Asesoria() {
+    }
+
+
+
+
+    public Asesoria(String nombreCompleto, String matricula, String programa, int idDocente, int idMateria, String fecha, String hora, String asunto, int esAlumno) {
+        this.nombreCompleto = nombreCompleto;
+        this.matricula = matricula;
+        this.programa = programa;
         this.idDocente = idDocente;
         this.idMateria = idMateria;
         this.fecha = fecha;
         this.hora = hora;
         this.asunto = asunto;
         this.esAlumno = esAlumno;
-        this.estado = estado;
-        this.comentario = comentario;
     }
+
+
+
 
     public int getId() {
         return id;
@@ -38,12 +51,28 @@ private String comentario;
         this.id = id;
     }
 
-    public int getIdAlumno() {
-        return idAlumno;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
     }
 
     public int getIdDocente() {
@@ -110,7 +139,32 @@ private String comentario;
         this.comentario = comentario;
     }
 
+    public String getFechaSolicitud() {
+        return fechaSolicitud;
+    }
 
+    public void setFechaSolicitud(String fechaSolicitud) {
+        this.fechaSolicitud = fechaSolicitud;
+    }
+
+    public String getNombreDocente() {
+        return nombreDocente;
+    }
+
+    public void setNombreDocente(String nombreDocente) {
+        this.nombreDocente = nombreDocente;
+    }
+
+    public String getNombreMateria() {
+        return nombreMateria;
+    }
+
+    public void setNombreMateria(String nombreMateria) {
+        this.nombreMateria = nombreMateria;
+    }
+
+  
+  
 
 
 

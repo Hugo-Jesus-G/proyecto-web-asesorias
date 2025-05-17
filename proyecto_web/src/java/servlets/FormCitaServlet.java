@@ -15,7 +15,9 @@ import conexion.Conexion;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import modelos.Asesoria;
 import modelos.Docente;
+import modelos.Estudiante;
 import modelos.Materia;
 
 @WebServlet(urlPatterns = {"/formCitaServlet"})
@@ -29,31 +31,54 @@ public class FormCitaServlet extends HttpServlet {
         List<Docente> docentes = Conexion.getDocentes();
         request.setAttribute("materias", materias);
         request.setAttribute("docentes", docentes);
-        
-        
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("form.jsp");
         dispatcher.forward(request, response);
     }
-    
-    
-     @Override
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Recuperar los datos del formulario
+       boolean existeMatricula;
+
         String nombre = request.getParameter("nombre");
         String matricula = request.getParameter("matricula");
         String programa = request.getParameter("programa");
         int materiaId = Integer.parseInt(request.getParameter("materia"));
         int profesorId = Integer.parseInt(request.getParameter("profesor"));
         String esAlumno = request.getParameter("esAlumno");
-        boolean esAlumnoValor = esAlumno.equals("Si");
+        int esAlumnoValor = Integer.parseInt(request.getParameter("esAlumno"));
         String fecha = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         String asunto = request.getParameter("asunto");
+
+        existeMatricula = Conexion.verificaMatricula(matricula);
+
+        if (existeMatricula ) {
+            
+            Asesoria asesoria = new Asesoria(nombre, matricula, programa, profesorId, materiaId, fecha, hora, asunto, esAlumnoValor);
+
+            
+            boolean guardado = Conexion.guardarCita(asesoria);
+
+            if (guardado) {
+                request.setAttribute("mensaje", " Cita guardada exitosamente.");
+            } else {
+                request.setAttribute("mensaje", "Error al guardar la cita.");
+            }
+
+        } else {
+            request.setAttribute("mensaje", " La matrícula ingresada no existe.");
+        }
         
-        
+         List<Materia> materias = Conexion.getMaterias();
+        List<Docente> docentes = Conexion.getDocentes();
+        request.setAttribute("materias", materias);
+        request.setAttribute("docentes", docentes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("form.jsp");
+        dispatcher.forward(request, response);
+
     }
 
 }

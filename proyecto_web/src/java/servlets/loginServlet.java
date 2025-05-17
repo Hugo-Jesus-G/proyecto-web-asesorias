@@ -34,11 +34,12 @@ public class loginServlet extends HttpServlet {
         docente = Conexion.getDocente(identificador, contrasena);
         if (estudiante != null) {
             sesion.setAttribute("usuario", estudiante);
-            response.sendRedirect("alumno.jsp");
+            sesion.setAttribute("rol", "estudiante");
+            response.sendRedirect("CargaAsesoriasServlet");
         } else if (docente != null) {
             sesion.setAttribute("usuario", docente);
-
-            response.sendRedirect("docente.jsp");
+            sesion.setAttribute("rol", "docente");
+            response.sendRedirect("CargaAsesoriasServlet");
 
         } else {
             response.sendRedirect("login.jsp?error=1");
